@@ -5,8 +5,12 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class WebinarParser extends Thread {
-    URL obj;
+/**
+ * In this condition, this class absolutely useless.
+ */
+public class WebinarParser /*extends Thread*/ {
+/*    URL obj;
+
     @Override
     public void run() {
         try {
@@ -41,6 +45,7 @@ public class WebinarParser extends Thread {
             e.printStackTrace();
         }
     }
+
     public void connectionStream(String url) throws IOException {
         obj = new URL(url);
         this.start();
@@ -49,5 +54,5 @@ public class WebinarParser extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

@@ -14,8 +14,8 @@ CourseGroup.java
  LessonsPassing
  RegisteredAt
  Student
-WebinarParser.java
- WebinarParser
+Group3.java
+ Group3
 Group1.java
  Group1
 Group2.java
@@ -24,5 +24,5 @@ Group4.java
  Group4
 Main.java
  Main
-Group3.java
- Group3
+WebinarParser.java
+ WebinarParser

@@ -22,8 +22,8 @@ public class Main {
     public static XSSFWorkbook workbook = new XSSFWorkbook();
     public static void main(String[] args) throws IOException {
         var url = "https://userapi.webinar.ru/v3/organization/courses";
-        var webinarParser = new WebinarParser();
-        webinarParser.connectionStream(url);
+/*        var webinarParser = new WebinarParser();*/
+        connectionStream(url);
         System.out.println(response.toString());
         var g = new Gson();
         CourseList courseList = g.fromJson(response.toString(), CourseList.class);
