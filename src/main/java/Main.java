@@ -37,7 +37,7 @@ public class Main {
         var finalUrl = url;
         int groupid;
         courseList.getData().forEach(x -> {
-//            if (x.isPublish())
+            if (x.isPublish())
                 requestsById.add(finalUrl + x.getId());
         });
         for (var elem:requestsById) {
@@ -45,6 +45,7 @@ public class Main {
             System.out.println(response.toString());
             courses.add(g.fromJson(response.toString(), Course.class));
         }
+        System.out.println(courses.get(0).getId());
 
 
         /*url = "https://userapi.webinar.ru/v3/courses/";
@@ -83,217 +84,52 @@ public class Main {
 
             courseGroup.clear();
         }*/
-        String[] what1 = {"Sochinenie", "Lecture", "Lesson", "HomeWork", "Task"};
-        String[] what2 = {"Lecture", "Lesson", "HomeWork", "Task", "Exam"};
-        String[] what3 = {"Lecture", "HomeWork", "Exam"};
-        String[] what4 = {"Lecture", "HomeWork", "Task", "Exam"};
         var list = new ArrayList<ArrayList<Object[]>>();
         var list1 = new ArrayList<Object[]>();
-        int courseId1 = 7;
-        int courseId2 = 15;
-        int courseId3 = 23;
+        int courseId1 = (int) courses.get(0).getId();
+        int courseId2 = (int) courses.get(1).getId();
+        int courseId3 = (int) courses.get(2).getId();
         var int_list = new ArrayList<Integer>(3);
         int_list.add(courseId1);
         int_list.add(courseId2);
         int_list.add(courseId3);
-        int aver_cool = 95;
-        int count = 0;
-        int counter1 = 0;
-        int true_counter = 0;
-        boolean state = true;
-        for (var elem:int_list) {
-            for (int id = 0; id < 12; id++) {
-//                true_counter++;
-                /*if (true_counter == Math.random()*12)
-                    state = false;
-                else
-                    state = true;*/
-                if (count == 0) {
-                    if (counter1 >= what1.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what1[counter1], aver_cool, elem, state});
-                } else if (count == 1) {
-                    if (counter1 >= what2.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what2[counter1], aver_cool, elem, state});
-                } else if (count == 2) {
-                    if (counter1 >= what3.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what3[counter1], aver_cool, elem, state});
-                } else if (count == 4) {
-                    if (counter1 >= what4.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what4[counter1], aver_cool, elem, state});
-                }
-                if (aver_cool < 90)
-                    aver_cool += 7;
-                else
-                    aver_cool -= 2;
-                counter1++;
+        Group1 group1 = new Group1();
+        try {
+            list = group1.write(int_list);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            }
-//            true_counter = 0;
-            counter1 = 0;
-            count++;
-            list.add((ArrayList<Object[]>) list1.clone());
-            list1.clear();
+        Group2 group2 = new Group2();
+        try {
+            list = group2.write(list, int_list);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        count = 0;
-        int aver_mid = 67;
-        true_counter = 0;
-        for (var elem:int_list) {
-            for (int id = 24; id < 360; id+=24) {
-//                true_counter++;
-                // We checking if he attended classes
-                /*if (true_counter == Math.random()*15 || true_counter == 12 || true_counter == 6)
-                    state = false;
-                else
-                    state = true;*/
-                if (count == 0) {
-                    if (counter1 >= what1.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what1[counter1], aver_mid, elem, state});
-                }
-                else if (count == 1) {
-                    if (counter1 >= what2.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what2[counter1], aver_mid, elem, state});
-                }
-                else if (count == 2) {
-                    if (counter1 >= what3.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what3[counter1], aver_mid, elem, state});
-                }
-                else if (count == 4) {
-                    if (counter1 >= what4.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what4[counter1], aver_mid, elem, state});
-                }
-                if (aver_mid < 55)
-                    aver_mid += 25;
-                else if (aver_mid < 62)
-                    aver_mid += 6;
-                else if (aver_mid > 70)
-                    aver_mid -= 8;
-                else
-                    aver_mid -= 3;
-                counter1++;
-            }
-//            true_counter = 0;
-            counter1 = 0;
-            count++;
-            list.add((ArrayList<Object[]>) list1.clone());
-            list1.clear();
+
+        Group3 group3 = new Group3();
+        try {
+            list = group3.write(list, int_list);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        count = 0;
-        int aver_low = 50;
-        for (var elem:int_list) {
-            for (int id = 137; id < 233; id+=5) {
-//                true_counter++;
-                // We checking if he attended classes
-                /*if (true_counter == Math.random()*19 || true_counter == Math.random()*19 || true_counter == Math.random()*3 || true_counter == Math.random()*5 || true_counter == 4 || true_counter == 7)
-                    state = false;
-                else
-                    state = true;*/
-                if (count == 0) {
-                    if (counter1 >= what1.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what1[counter1], aver_low, elem, state});
-                }
-                else if (count == 1) {
-                    if (counter1 >= what2.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what2[counter1], aver_low, elem, state});
-                }
-                else if (count == 2) {
-                    if (counter1 >= what3.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what3[counter1], aver_low, elem, state});
-                }
-                else if (count == 4) {
-                    if (counter1 >= what4.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what4[counter1], aver_low, elem, state});
-                }
-                if (aver_low < 30)
-                    aver_low += 12;
-                else if (aver_low < 37)
-                    aver_low += 17;
-                else if (aver_low > 50)
-                    aver_low -= 9;
-                else
-                    aver_low -= 2;
-                counter1++;
-            }
-//            true_counter = 0;
-            counter1 = 0;
-            count++;
-            list.add((ArrayList<Object[]>) list1.clone());
-            list1.clear();
-        }
-        count = 0;
-        int aver_chaos = 50;
-        for (var elem:int_list) {
-            for (int id = 50; id < 211; id+=7) {
-//                true_counter++;
-                // We checking if he attended classes
-                /*if (true_counter == Math.random()*19 || true_counter == Math.random()*19 || true_counter == Math.random()*3 || true_counter == Math.random()*5 || true_counter == 16 || true_counter == 23)
-                    state = false;
-                else
-                    state = true;*/
-                if (count == 0) {
-                    if (counter1 >= what1.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what1[counter1], aver_chaos, elem, state});
-                }
-                else if (count == 1) {
-                    if (counter1 >= what2.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what2[counter1], aver_chaos, elem, state});
-                }
-                else if (count == 2) {
-                    if (counter1 >= what3.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what3[counter1], aver_chaos, elem, state});
-                }
-                else if (count == 4) {
-                    if (counter1 >= what4.length)
-                        counter1 = 0;
-                    list1.add(new Object[]{id, what4[counter1], aver_chaos, elem, state});
-                }
-                if (aver_chaos < 20)
-                    aver_chaos += 75;
-                else if (aver_chaos < 30 )
-                    aver_chaos -= 15;
-                else if (aver_chaos < 62 && aver_chaos > 56)
-                    aver_chaos -= 14;
-                else if (aver_chaos > 70 && aver_chaos < 93)
-                    aver_chaos -= 24;
-                else if (aver_chaos > 63 && aver_chaos < 67)
-                    aver_chaos += 18;
-                else if (aver_chaos < 50 & aver_chaos > 35)
-                    aver_chaos -= 15;
-                else
-                    aver_chaos -= 3;
-                counter1++;
-            }
-//            true_counter = 0;
-            counter1 = 0;
-            count++;
-            list.add((ArrayList<Object[]>) list1.clone());
-            list1.clear();
+
+        Group4 group4 = new Group4();
+        try {
+            list = group4.write(list, int_list);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         int counter_group = 1;
         int counter_course = 1;
         for (var elem:list) {
-            write(workbook.createSheet( "Group "+ counter_group + " Course " + counter_course), elem);
+            write(workbook.createSheet( "Group "+ counter_course + " Course " + counter_group), elem);
             counter_group++;
             if (counter_group == 4) {
                 counter_course += 1;
                 counter_group = 1;
             }
         }
-
     }
 
     /**

@@ -1,7 +1,8 @@
-Group2.java
- Group2
-Group3.java
- Group3
+Course.java
+ Course
+ Groups
+WritingThread.java
+ WritingThread
 CourseGroup.java
  Contact
  CourseGroup
@@ -13,17 +14,16 @@ CourseGroup.java
  Student
 ParsingThread.java
  ParsingThread
-Group1.java
- Group1
 CourseList.java
  CourseList
  Information
  Owner
-WritingThread.java
- WritingThread
-Course.java
- Course
- Groups
+Group2.java
+ Group2
+Group3.java
+ Group3
+Group1.java
+ Group1
 Group4.java
  Group4
 Main.java
