@@ -1,8 +1,10 @@
 Course.java
  Course
  Groups
-WritingThread.java
- WritingThread
+CourseList.java
+ CourseList
+ Information
+ Owner
 CourseGroup.java
  Contact
  CourseGroup
@@ -12,19 +14,15 @@ CourseGroup.java
  LessonsPassing
  RegisteredAt
  Student
-ParsingThread.java
- ParsingThread
-CourseList.java
- CourseList
- Information
- Owner
-Group2.java
- Group2
-Group3.java
- Group3
+WebinarParser.java
+ WebinarParser
 Group1.java
  Group1
+Group2.java
+ Group2
 Group4.java
  Group4
 Main.java
  Main
+Group3.java
+ Group3

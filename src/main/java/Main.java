@@ -21,11 +21,9 @@ public class Main {
     public static String inputLine;
     public static XSSFWorkbook workbook = new XSSFWorkbook();
     public static void main(String[] args) throws IOException {
-
-        ParsingThread thread = new ParsingThread();
-
         var url = "https://userapi.webinar.ru/v3/organization/courses";
-        connectionStream(url);
+        var webinarParser = new WebinarParser();
+        webinarParser.connectionStream(url);
         System.out.println(response.toString());
         var g = new Gson();
         CourseList courseList = g.fromJson(response.toString(), CourseList.class);
@@ -48,6 +46,7 @@ public class Main {
         System.out.println(courses.get(0).getId());
 
 
+        // Maybe it will be used later
         /*url = "https://userapi.webinar.ru/v3/courses/";
         var finUrl = url;
         requestsById.clear();
