@@ -123,10 +123,10 @@ public class Main {
         int counter_course = 1;
         for (var elem:list) {
             write(workbook.createSheet( "Group "+ counter_course + " Course " + counter_group), elem);
-            counter_group++;
-            if (counter_group == 4) {
-                counter_course += 1;
-                counter_group = 1;
+            counter_course++;
+            if (counter_course == 4) {
+                counter_group += 1;
+                counter_course = 1;
             }
         }
     }

@@ -61,13 +61,13 @@ public class Group4 extends Thread{
                 else if (count == 4) {
                     if (counter1 >= what4.length)
                         counter1 = 0;
-                    if (what1[counter1].equals("Sochinenie") || what1[counter1].equals("HomeWork") || what1[counter1].equals("Task") || what1[counter1].equals("Exam")) {
+                    if (what4[counter1].equals("Sochinenie") || what4[counter1].equals("HomeWork") || what4[counter1].equals("Task") || what4[counter1].equals("Exam")) {
                         if (state)
-                            list1.add(new Object[]{id, what1[counter1], aver_chaos, elem, state});
+                            list1.add(new Object[]{id, what4[counter1], aver_chaos, elem, state});
                         else
-                            list1.add(new Object[]{id, what1[counter1], zer, elem, state});
+                            list1.add(new Object[]{id, what4[counter1], zer, elem, state});
                     } else
-                        list1.add(new Object[]{id, what1[counter1], "No result for this", elem, state});
+                        list1.add(new Object[]{id, what4[counter1], "No result for this", elem, state});
 
                 }
                 if (aver_chaos < 20)
