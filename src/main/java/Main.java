@@ -20,6 +20,7 @@ public class Main {
     public static StringBuffer response;
     public static String inputLine;
     public static XSSFWorkbook workbook = new XSSFWorkbook();
+    public static int lessns_am = (int) Math.round(Math.random()*10 + 11);
     public static void main(String[] args) throws IOException {
         var url = "https://userapi.webinar.ru/v3/organization/courses";
 /*        var webinarParser = new WebinarParser();*/
@@ -83,8 +84,10 @@ public class Main {
 
             courseGroup.clear();
         }*/
-        var list = new ArrayList<ArrayList<Object[]>>();
-        var list1 = new ArrayList<Object[]>();
+
+
+
+        var list = new ArrayList<ArrayList<ArrayList<Object>>>();
         int courseId1 = (int) courses.get(0).getId();
         int courseId2 = (int) courses.get(1).getId();
         int courseId3 = (int) courses.get(2).getId();
@@ -122,7 +125,7 @@ public class Main {
         int counter_group = 1;
         int counter_course = 1;
         for (var elem:list) {
-            write(workbook.createSheet( "Group "+ counter_course + " Course " + counter_group), elem);
+            write(workbook.createSheet( "Group "+ counter_group + " Course ID " + (counter_course == 1 ? courseId1 : counter_course == 2 ? courseId2 : courseId3)), elem);
             counter_course++;
             if (counter_course == 4) {
                 counter_group += 1;
@@ -151,20 +154,28 @@ public class Main {
         in.close();
     }
 
-    public static void write(XSSFSheet sheet, ArrayList<Object[]> objects) throws IOException {
+    public static void write(XSSFSheet sheet, ArrayList<ArrayList<Object>> objects) throws IOException {
         int rowCount = 0;
         Row row = sheet.createRow(0);
         Cell cell = row.createCell(0);
         cell.setCellValue("Student ID");
-        cell = row.createCell(1);
-        cell.setCellValue("Type");
-        cell = row.createCell(2);
-        cell.setCellValue("Score");
-        cell = row.createCell(3);
-        cell.setCellValue("Course ID");
-        cell = row.createCell(4);
-        cell.setCellValue("Attendance");
-        for (Object[] aBook : objects) {
+        var lst = new ArrayList<String>();
+        lst.add("Lesson");
+        lst.add("Webinar");
+        lst.add("HomeWork");
+        String prev = "";
+        for (int i = 1; i < lessns_am; i++) {
+            cell = row.createCell(i);
+            var item = lst.get((int) Math.round(Math.random()*2));
+            if (i == 1)
+                cell.setCellValue(lst.get((int) Math.round(Math.random()*1)));
+            else if (prev.equals(item))
+                cell.setCellValue(lst.get((int) Math.round(Math.random()*1)));
+            else
+                cell.setCellValue(item);
+            prev = item;
+        }
+        for (ArrayList<Object> aBook : objects) {
             row = sheet.createRow(++rowCount);
             int columnCount = 0;
             for (Object field : aBook) {
@@ -176,7 +187,11 @@ public class Main {
                 } else if (field instanceof Integer) {
                     cell.setCellValue((int) field);
                 } else if (field instanceof Boolean) {
-                    cell.setCellValue((boolean) field);
+                    var up_cell = sheet.getRow(0).getCell(columnCount-1).toString();
+                    if (up_cell.equals("HomeWork"))
+                        cell.setCellValue(((boolean) field) ? "Completed" : "Not Completed");
+                    else
+                        cell.setCellValue((boolean) field ? "Attended" : "Absence");
                 }/* else if (field instanceof LocalDate) {
                     cell.setCellValue(java.sql.Date.valueOf((LocalDate) field));
                 }*/
