@@ -8,10 +8,10 @@ public class Group3 extends Thread {
      */
     @Override
     public void run() {
-        String[] what1 = {"Essay", "Lecture", "Lesson", "HomeWork", "Task"};
+        /*String[] what1 = {"Essay", "Lecture", "Lesson", "HomeWork", "Task"};
         String[] what2 = {"Lecture", "Lesson", "HomeWork", "Task", "Exam"};
         String[] what3 = {"Lecture", "HomeWork", "Exam", "Essay"};
-        String[] what4 = {"Lecture", "HomeWork", "Task", "Exam"};
+        String[] what4 = {"Lecture", "HomeWork", "Task", "Exam"};*/
         var list1 = new ArrayList<ArrayList<Object>>();
         int count = 0;
         int counter1 = 0;
@@ -103,7 +103,7 @@ public class Group3 extends Thread {
         this.int_list = int_list;
         this.list = list;
         this.start();
-        this.join();
+        /*this.join();*/
         return this.list;
     }
 }

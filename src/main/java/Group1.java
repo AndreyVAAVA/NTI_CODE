@@ -9,10 +9,10 @@ public class Group1 extends Thread{
      */
     @Override
     public void run() {
-        String[] what1 = {"Essay", "Lecture", "Lesson", "HomeWork", "Task"};
+        /*String[] what1 = {"Essay", "Lecture", "Lesson", "HomeWork", "Task"};
         String[] what2 = {"Lecture", "Lesson", "HomeWork", "Task", "Exam"};
         String[] what3 = {"Lecture", "HomeWork", "Exam", "Essay"};
-        String[] what4 = {"Lecture", "HomeWork", "Task", "Exam"};
+        String[] what4 = {"Lecture", "HomeWork", "Task", "Exam"};*/
         var list1 = new ArrayList<ArrayList<Object>>();
         int aver_cool = (int) Math.round(Math.random() * 20 + 80);
         int count = 0;
@@ -101,7 +101,7 @@ public class Group1 extends Thread{
     public ArrayList<ArrayList<ArrayList<Object>>> write(ArrayList<Integer> int_list) throws InterruptedException {
             this.int_list = int_list;
             this.start();
-            this.join();
+            /*this.join();*/
             return list;
     }
 }

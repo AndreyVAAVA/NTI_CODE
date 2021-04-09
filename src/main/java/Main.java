@@ -1,6 +1,8 @@
 import com.google.gson.Gson;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -21,13 +23,17 @@ public class Main {
     public static String inputLine;
     public static XSSFWorkbook workbook = new XSSFWorkbook();
     public static int lessns_am = (int) Math.round(Math.random()*10 + 11);
+    /*public static CourseList courseList;
+    public static ArrayList<String> requestsById = new ArrayList<>();*/
+    public static ArrayList<String> list_names = new ArrayList<>();
+    public static ArrayList<String> list_0 = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         var url = "https://userapi.webinar.ru/v3/organization/courses";
 /*        var webinarParser = new WebinarParser();*/
         connectionStream(url);
         System.out.println(response.toString());
         var g = new Gson();
-        CourseList courseList = g.fromJson(response.toString(), CourseList.class);
+        var courseList = g.fromJson(response.toString(), CourseList.class);
         System.out.println(courseList.getData().get(0).getId()); //John
 
         url = "https://userapi.webinar.ru/v3/courses/";
@@ -122,15 +128,139 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        list_names = new ArrayList<String>();
         int counter_group = 1;
         int counter_course = 1;
         for (var elem:list) {
-            write(workbook.createSheet( "Group "+ counter_group + " Course ID " + (counter_course == 1 ? courseId1 : counter_course == 2 ? courseId2 : courseId3)), elem);
+            var sheet_name = "Group "+ counter_group + " Course ID " + (counter_course == 1 ? courseId1 : counter_course == 2 ? courseId2 : courseId3);
+            list_names.add(sheet_name);
+            write(workbook.createSheet(sheet_name), elem);
             counter_course++;
             if (counter_course == 4) {
                 counter_group += 1;
                 counter_course = 1;
             }
+        }
+        Writer writer = new Writer();
+        writer.start();
+        XSSFSheet sheet = workbook.createSheet("Total amount 1");
+        sheet.createRow(0);
+        list_0 = new ArrayList<String>();
+        for (int i = 1; i < 4; i++) {
+            list_0.add("Amount of exercises for course " + i);
+            list_0.add("Amount of homeworks for course " + i);
+        }
+        XSSFCell cell;
+        for (int i = 0; i < list_0.size(); i++) {
+            cell = sheet.getRow(0).createCell(i);
+            cell.setCellValue(list_0.get(i));
+        }
+        int sec_counter = 0;
+        sheet.createRow(1);
+        for (int i = 0; i < 3; i++) {
+            cell = sheet.getRow(1).createCell(sec_counter);
+            cell.setCellFormula("COUNTIF('"+ list_names.get(i) + "'!1:1000, \"Lesson\") + COUNTIF('" + list_names.get(i) + "'!1:1000, \"Webinar\")");
+            XSSFFormulaEvaluator formulaEvaluator =
+                    workbook.getCreationHelper().createFormulaEvaluator();
+            formulaEvaluator.evaluateFormulaCell(cell);
+            cell = sheet.getRow(1).createCell(sec_counter+1);
+            cell.setCellFormula("COUNTIF('" + list_names.get(i) + "'!1:1000, \"Homework\")");
+            formulaEvaluator =
+                    workbook.getCreationHelper().createFormulaEvaluator();
+            formulaEvaluator.evaluateFormulaCell(cell);
+            sec_counter += 2;
+        }
+        Total1Thread thread = new Total1Thread();
+        XSSFSheet sheet1 = workbook.createSheet("Group 1 Course 1");
+        XSSFSheet sheet2 = workbook.createSheet("Group 1 Course 2");
+        XSSFSheet sheet3 = workbook.createSheet("Group 1 Course 3");
+        thread.setSheets(sheet1, sheet2, sheet3);
+        sheet = workbook.createSheet("Total amount 2");
+        sheet.createRow(0);
+        for (int i = 0; i < list_0.size(); i++) {
+            cell = sheet.getRow(0).createCell(i);
+            cell.setCellValue(list_0.get(i));
+        }
+        sec_counter = 0;
+        sheet.createRow(1);
+        for (int i = 3; i < 6; i++) {
+            cell = sheet.getRow(1).createCell(sec_counter);
+            cell.setCellFormula("COUNTIF('"+ list_names.get(i) + "'!1:1000, \"Lesson\") + COUNTIF('" + list_names.get(i) + "'!1:1000, \"Webinar\")");
+            XSSFFormulaEvaluator formulaEvaluator =
+                    workbook.getCreationHelper().createFormulaEvaluator();
+            formulaEvaluator.evaluateFormulaCell(cell);
+            cell = sheet.getRow(1).createCell(sec_counter+1);
+            cell.setCellFormula("COUNTIF('" + list_names.get(i) + "'!1:1000, \"Homework\")");
+            formulaEvaluator =
+                    workbook.getCreationHelper().createFormulaEvaluator();
+            formulaEvaluator.evaluateFormulaCell(cell);
+            sec_counter += 2;
+        }
+//        sec_counter = 0;
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        sheet1 = workbook.createSheet("Group 2 Course 1");
+        sheet2 = workbook.createSheet("Group 2 Course 2");
+        sheet3 = workbook.createSheet("Group 2 Course 3");
+        Total2Thread total2Thread = new Total2Thread();
+        total2Thread.setSheets(sheet1, sheet2, sheet3);
+        sheet = workbook.createSheet("Total amount 3");
+        sheet.createRow(0);
+        for (int i = 0; i < list_0.size(); i++) {
+            cell = sheet.getRow(0).createCell(i);
+            cell.setCellValue(list_0.get(i));
+        }
+        sec_counter = 0;
+        sheet.createRow(1);
+        for (int i = 6; i < 9; i++) {
+            cell = sheet.getRow(1).createCell(sec_counter);
+            cell.setCellFormula("COUNTIF('"+ list_names.get(i) + "'!1:1000, \"Lesson\") + COUNTIF('" + list_names.get(i) + "'!1:1000, \"Webinar\")");
+            XSSFFormulaEvaluator formulaEvaluator =
+                    workbook.getCreationHelper().createFormulaEvaluator();
+            formulaEvaluator.evaluateFormulaCell(cell);
+            cell = sheet.getRow(1).createCell(sec_counter+1);
+            cell.setCellFormula("COUNTIF('" + list_names.get(i) + "'!1:1000, \"Homework\")");
+            formulaEvaluator =
+                    workbook.getCreationHelper().createFormulaEvaluator();
+            formulaEvaluator.evaluateFormulaCell(cell);
+            sec_counter += 2;
+        }
+//        sec_counter = 0;
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        sheet1 = workbook.createSheet("Group 3 Course 1");
+        sheet2 = workbook.createSheet("Group 3 Course 2");
+        sheet3 = workbook.createSheet("Group 3 Course 3");
+        Total3Thread total3Thread = new Total3Thread();
+        total3Thread.setSheets(sheet1, sheet2, sheet3);
+        sheet = workbook.createSheet("Total amount 4");
+        sheet.createRow(0);
+        for (int i = 0; i < list_0.size(); i++) {
+            cell = sheet.getRow(0).createCell(i);
+            cell.setCellValue(list_0.get(i));
+        }
+        sec_counter = 0;
+        sheet.createRow(1);
+        for (int i = 9; i < 12; i++) {
+            cell = sheet.getRow(1).createCell(sec_counter);
+            cell.setCellFormula("COUNTIF('"+ list_names.get(i) + "'!1:1000, \"Lesson\") + COUNTIF('" + list_names.get(i) + "'!1:1000, \"Webinar\")");
+            XSSFFormulaEvaluator formulaEvaluator =
+                    workbook.getCreationHelper().createFormulaEvaluator();
+            formulaEvaluator.evaluateFormulaCell(cell);
+            cell = sheet.getRow(1).createCell(sec_counter+1);
+            cell.setCellFormula("COUNTIF('" + list_names.get(i) + "'!1:1000, \"Homework\")");
+            formulaEvaluator =
+                    workbook.getCreationHelper().createFormulaEvaluator();
+            formulaEvaluator.evaluateFormulaCell(cell);
+            sec_counter += 2;
+        }
+//        sec_counter = 0;
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        sheet1 = workbook.createSheet("Group 4 Course 1");
+        sheet2 = workbook.createSheet("Group 4 Course 2");
+        sheet3 = workbook.createSheet("Group 4 Course 3");
+        Total4Thread total4Thread = new Total4Thread();
+        total4Thread.setSheets(sheet1, sheet2, sheet3);
+        try (FileOutputStream outputStream = new FileOutputStream("Stats.xlsx")) {
+            workbook.write(outputStream);
         }
     }
 
@@ -197,9 +327,11 @@ public class Main {
                 }*/
             }
         }
-        try (FileOutputStream outputStream = new FileOutputStream("Stats.xlsx")) {
+
+
+        /*try (FileOutputStream outputStream = new FileOutputStream("Stats.xlsx")) {
             workbook.write(outputStream);
-        }
+        }*/
     }
 
 }
