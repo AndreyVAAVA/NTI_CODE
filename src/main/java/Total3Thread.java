@@ -30,6 +30,15 @@ public class Total3Thread extends Thread {
             cell.setCellFormula("ROUND(COUNTIF('Group 3 Course ID 49185'!" + i + ":" +i + ",\"Completed\")/'Total amount 3'!B2 * 100,0)");
             formulaEvaluator.evaluateFormulaCell(cell);
         }
+        sheet1.createRow(21);
+        cell = sheet1.getRow(21).createCell(0);
+        cell.setCellValue("Result");
+        cell = sheet1.getRow(21).createCell(1);
+        cell.setCellFormula("ROUND(AVERAGE(B2:B13),1)");
+        formulaEvaluator.evaluateFormulaCell(cell);
+        cell = sheet1.getRow(21).createCell(2);
+        cell.setCellFormula("ROUND(AVERAGE(C2:C13),1)");
+        formulaEvaluator.evaluateFormulaCell(cell);
         for (int i = 1; i < 22; i++) {
             sheet2.createRow(i-1);
             cell = sheet2.getRow(i-1).createCell(0);
@@ -49,6 +58,15 @@ public class Total3Thread extends Thread {
             cell.setCellFormula("ROUND(COUNTIF('Group 3 Course ID 49187'!" + i + ":" +i + ",\"Completed\")/'Total amount 3'!D2 * 100,0)");
             formulaEvaluator.evaluateFormulaCell(cell);
         }
+        sheet2.createRow(21);
+        cell = sheet2.getRow(21).createCell(0);
+        cell.setCellValue("Result");
+        cell = sheet2.getRow(21).createCell(1);
+        cell.setCellFormula("ROUND(AVERAGE(B2:B13),1)");
+        formulaEvaluator.evaluateFormulaCell(cell);
+        cell = sheet2.getRow(21).createCell(2);
+        cell.setCellFormula("ROUND(AVERAGE(C2:C13),1)");
+        formulaEvaluator.evaluateFormulaCell(cell);
         for (int i = 1; i < 22; i++) {
             sheet3.createRow(i-1);
             cell = sheet3.getRow(i-1).createCell(0);
@@ -68,6 +86,15 @@ public class Total3Thread extends Thread {
             cell.setCellFormula("ROUND(COUNTIF('Group 3 Course ID 49191'!" + i + ":" +i + ",\"Completed\")/'Total amount 3'!F2 * 100,0)");
             formulaEvaluator.evaluateFormulaCell(cell);
         }
+        sheet3.createRow(21);
+        cell = sheet3.getRow(21).createCell(0);
+        cell.setCellValue("Result");
+        cell = sheet3.getRow(21).createCell(1);
+        cell.setCellFormula("ROUND(AVERAGE(B2:B13),1)");
+        formulaEvaluator.evaluateFormulaCell(cell);
+        cell = sheet3.getRow(21).createCell(2);
+        cell.setCellFormula("ROUND(AVERAGE(C2:C13),1)");
+        formulaEvaluator.evaluateFormulaCell(cell);
     }
     public void setSheets(XSSFSheet sheet1, XSSFSheet sheet2, XSSFSheet sheet3){
         this.sheet1 = sheet1;

@@ -22,19 +22,19 @@ Group2.java
  Group2
 Group3.java
  Group3
-Total2Thread.java
- Total2Thread
+Group4.java
+ Group4
 Writer.java
  Writer
 Group1.java
  Group1
-Group4.java
- Group4
 Total1Thread.java
  Total1Thread
-Total4Thread.java
- Total4Thread
 Total3Thread.java
  Total3Thread
 Main.java
  Main
+Total2Thread.java
+ Total2Thread
+Total4Thread.java
+ Total4Thread
